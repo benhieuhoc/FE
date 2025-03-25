@@ -1,0 +1,8 @@
+.menu-item:not(:last-child) {
+    border-bottom: 1px solid black;
+    font-size: 17px;
+}
+.ant-menu-item-selected {
+    background-color: #74f7b5 !important;
+    color: black !important;
+  }
