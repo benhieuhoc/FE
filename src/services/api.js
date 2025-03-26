@@ -33,3 +33,9 @@ export const callCreateProject = (nameproject, author_id, description ) => {
         nameproject, author_id, description 
     })
 }
+
+export const updateProject = ( _id, nameproject, author_id, description ) => {
+    return axios.put('/project/update', {
+        _id, nameproject, author_id, description 
+    })
+}

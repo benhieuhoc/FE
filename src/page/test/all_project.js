@@ -1,24 +1,34 @@
 import { Button, Col, Pagination, Popconfirm, Row, Space, Table, notification, message } from "antd"
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { fetchAllProject } from "../../services/api";
+import { fetchAllProject, fetchAllUser } from "../../services/api";
 import { IoAddOutline } from "react-icons/io5";
 import CreateProject from "./create_project";
+import UpdateProject from "./update_project";
 
 const All_project = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalDoctors, setTotalDoctors] = useState(0);
     const [pageSize, setPageSize] = useState(10);
+    const [dataUser, setDataUser] = useState([]);
     const [loadingTable, setLoadingTable] = useState(false)
     const [dataProject, setDataProject] = useState([])
-    const { Column, ColumnGroup } = Table;
+    const { Column } = Table;
     const [openCreateProject, setOpenCreateProject] = useState(false);
+    const [dataUpdateProject, setDataUpdateProject] = useState();
+    const [openUpdateProject, setOpenUpdateProject] = useState(false);
 
     useEffect(() => {
-        fetchListProject()
-        console.log("load data done")
-    }, [])
-
+        fetchListProject();
+        handleAllUser();
+        console.log("load data done");
+    }, [currentPage, pageSize]);
+    const handleAllUser = async () => {
+        let res = await fetchAllUser()
+        console.log("res user: ", res);
+        if(res && res.data) {
+            setDataUser(res.data)
+        }
+    };
     const fetchListProject = async () => {
         setLoadingTable(true)
         const res = await fetchAllProject()
@@ -27,7 +37,7 @@ const All_project = () => {
             setDataProject(res.data)
         }
         setLoadingTable(false)
-    }
+    };
     const cancelXoa = (e) => {
         console.log(e);
         message.error('Huỷ xoá');
@@ -73,7 +83,16 @@ const All_project = () => {
                 }
             }/>
             <Column title={<p className="title-col-style">Tên</p>} dataIndex="nameproject" key="nameproject"/>                    
-            <Column title={<p className="title-col-style">Tác giả</p>} dataIndex="author" key="author" />
+            <Column 
+                title={<p className="title-col-style">Tác giả</p>} 
+                dataIndex="author_id" key="author" 
+                render={(author_id) => {
+                    console.log("author_id: ", author_id);
+                    console.log("dataUser: ", dataUser);
+                    const author = dataUser.find(user => user._id === author_id); 
+                    return author ? author.name : "Không có tác giả";
+                }}
+            />
             <Column title={<p className="title-col-style">Mô tả</p>} dataIndex="description" key="description" />
             <Column
                 title={<p className="title-col-style">Chức năng</p>}
@@ -97,9 +116,13 @@ const All_project = () => {
 
                         <EditOutlined style={{color: "orange"}} onClick={() => {
                             console.log("record update: ", record);
-                            setOpenUpdateDoctor(true)
-                            setDataUpdateDoctor(record)
-                        }} /> 
+                            setDataUpdateProject(() => {
+                                setOpenUpdateProject(true); 
+                                return record;
+                            })
+                            // console.log("dataUpdateProject: ", dataUpdateProject);
+                        }}
+                        /> 
 
                         <Popconfirm
                             title={`xóa tài khoản`}
@@ -120,7 +143,14 @@ const All_project = () => {
             setOpenCreateProject={setOpenCreateProject}
             fetchListProject={fetchListProject}
         />
+        <UpdateProject 
+            dataUpdateProject={dataUpdateProject}
+            setDataUpdateProject={setDataUpdateProject}
+            openUpdateProject={openUpdateProject}
+            setOpenUpdateProject={setOpenUpdateProject}
+            fetchListProject={fetchListProject}
+        />  
     </>
- )
+    )
 }
 export default All_project;
