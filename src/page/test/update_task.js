@@ -1,34 +1,31 @@
 import { Checkbox, Col, Divider, Form, Input, InputNumber, message, Modal, notification, Radio, Row, Select, Upload } from "antd";
 import { useEffect, useState } from "react";
-import {updateProject, fetchAllUser} from "../../services/api"
+import {updateTask, fetchAllUser} from "../../services/api"
 
-const UpdateProject = (props) => {
+const UpdateTask = (props) => {
     const [isSubmit, setIsSubmit] = useState(false);
-    const [dataUser, setDataUser] = useState([]);
     const [form] = Form.useForm();
-    const {
-        dataUpdateProject, setDataUpdateProject,
-        openUpdateProject, setOpenUpdateProject,
-        fetchListProject
-    } = props
-    useEffect(() => {
-            handleAllUser()
-        }, [])
-    console.log("dataUpdateProject: ", dataUpdateProject);
-        const handleCancel = () => {
-        setOpenUpdateProject(false);
-        form.resetFields()
-    };
-    const handleUpdateProject = async (values) => {
+    const [dataUser, setDataUser] = useState([]);
 
-        const { _id, nameproject, author_id, description } = values
+    const {
+        dataUpdateTask, setDataUpdateTask,
+        openUpdateTask, setOpenUpdateTask,
+        fetchListTask
+    } = props;
+    useEffect(() => {
+        handleAllUser()
+    }, [])
+    const handleUpdateTask = async (values) => {
+    
+        const { _id, nametask, user_id, description } = values
         console.log("values: ", values);
         setIsSubmit(true)
-        const res = await updateProject( _id, nameproject, author_id, description )
+        const res = await updateTask( _id, nametask, user_id, description )
         if(res){
             message.success(res.message);
-            handleCancel()
-            await fetchListProject()
+            setDataUpdateTask(null);
+            handleCancel();
+            await fetchListTask();
         } else {
             notification.error({
                 message: 'Đã có lỗi xảy ra',
@@ -45,13 +42,19 @@ const UpdateProject = (props) => {
             setDataUser(res.data)
         }
     }
-    return (
+    const handleCancel = () => {
+        setDataUpdateTask(null);
+        setOpenUpdateTask(false);
+        form.resetFields()
+    };
+
+    return(
         <Modal
-            title={`Sửa thông tin dự án ${dataUpdateProject?.nameproject}`}
+            title={`Sửa thông tin dự án ${dataUpdateTask?.nametask}`}
             style={{
                 top: 20,
             }}
-            open={openUpdateProject}
+            open={openUpdateTask}
             onOk={() => form.submit()} 
             onCancel={() => handleCancel()}
             width={1100}
@@ -70,12 +73,12 @@ const UpdateProject = (props) => {
                         style={{
                         }}
                         initialValues={{
-                            _id: dataUpdateProject?._id,
-                            nameproject: dataUpdateProject?.nameproject,
-                            description: dataUpdateProject?.description,
-                            author_id: dataUpdateProject?.author_id
+                            _id: dataUpdateTask?._id,
+                            nametask: dataUpdateTask?.nametask,
+                            description: dataUpdateTask?.description,
+                            user_id: dataUpdateTask?.user_id
                         }}
-                        onFinish={handleUpdateProject}
+                        onFinish={handleUpdateTask}
                         autoComplete="off"
                         loading={isSubmit}
                     >
@@ -94,7 +97,7 @@ const UpdateProject = (props) => {
                                 <Form.Item
                                     layout="vertical"
                                     label="Tên dự án"
-                                    name="nameproject"
+                                    name="nametask"
                                     rules={[
                                         {
                                             required: true,
@@ -118,7 +121,7 @@ const UpdateProject = (props) => {
                                 <Form.Item
                                     layout="vertical"
                                     label="Tác giả"
-                                    name="author_id"
+                                    name="user_id"
                                     rules={[
                                         {
                                             required: true,
@@ -148,4 +151,4 @@ const UpdateProject = (props) => {
         </Modal>
     );
 };
-export default UpdateProject;
+export default UpdateTask;

@@ -1,7 +1,7 @@
 import { Button, Col, Pagination, Popconfirm, Row, Space, Table, notification, message } from "antd"
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { fetchAllProject, fetchAllUser } from "../../services/api";
+import { fetchAllProject, fetchAllUser, deleteProject } from "../../services/api";
 import { IoAddOutline } from "react-icons/io5";
 import CreateProject from "./create_project";
 import UpdateProject from "./update_project";
@@ -41,7 +41,23 @@ const All_project = () => {
     const cancelXoa = (e) => {
         console.log(e);
         message.error('Huỷ xoá');
-    };  
+    };
+    const handleDeleteProject = async (id) => {
+       console.log("id: ", id);
+        const res = await deleteProject(id)
+        if(res){
+            notification.success({
+                message: "Xóa thông tin dự án",
+                description: "Bạn đã xoá thành công"
+            })
+            await fetchListProject()
+        } else {
+            notification.error({
+                message: "Lỗi xảy ra",
+                description: JSON.stringify(res.message)
+            })
+        }
+    };
     return (
     <>
         <Row>
@@ -99,20 +115,7 @@ const All_project = () => {
                 key="action"
                 render={(_, record) => (
                     <Space size="middle">
-                        <EyeOutlined style={{color: "green", fontWeight: "bold", cursor: "pointer"}} 
-                            onClick={() => {
-                                console.log("record: ", record);    
-                                if(record.thoiGianKham.length > 0){
-                                    setOpenViewDoctor(true)
-                                    setDataDetailDoctor(record)
-                                } else {
-                                    notification.error({
-                                        message: `Không thể xem thông tin chi tiết của bác sĩ: ${record.lastName} ${record.firstName}`,
-                                        description: notificationContent(),
-                                    });
-                                }                                       
-                            }} 
-                        />
+                        
 
                         <EditOutlined style={{color: "orange"}} onClick={() => {
                             console.log("record update: ", record);
@@ -127,7 +130,7 @@ const All_project = () => {
                         <Popconfirm
                             title={`xóa tài khoản`}
                             description="Bạn có chắc chắn muốn xoá?"
-                            onConfirm={() => handleDeleteDoctor(record._id)}
+                            onConfirm={() => handleDeleteProject(record._id)}
                             onCancel={cancelXoa}
                             okText="Xác nhận xoá"
                             cancelText="Không Xoá"

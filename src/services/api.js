@@ -39,3 +39,31 @@ export const updateProject = ( _id, nameproject, author_id, description ) => {
         _id, nameproject, author_id, description 
     })
 }
+
+export const deleteProject = (_id) => {
+    console.log("id:", _id)
+    return axios.delete(`/project/delete/${_id}`)
+}
+
+// Task
+export const fetchAllTask = () => {
+    const URL_BACKEND = `/task/get_all?`    
+    return axios.get(URL_BACKEND)
+}
+
+export const callCreateTask = (nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status) => {
+    return axios.post(`/task/create`, {
+        nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status 
+    })
+}
+
+export const deleteTask = (_id) => {
+    console.log("id:", _id)
+    return axios.delete(`/task/delete/${_id}`)
+}
+
+export const updateTask = ( _id, nametask, user_id, description ) => {
+    return axios.put('/task/update', {
+        _id, nametask, user_id, description 
+    })
+}

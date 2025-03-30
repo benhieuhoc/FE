@@ -1,14 +1,16 @@
 import { Checkbox, Col, Divider, Form, Input, InputNumber, message, Modal, notification, Radio, Row, Select, Upload } from "antd"
 import { useEffect, useState } from "react";
-import {callCreateProject, fetchAllUser} from "../../services/api"
+import {callCreateTask, fetchAllUser} from "../../services/api"
 
-const CreateProject = (props) => {
-    const {
-        openCreateProject, setOpenCreateProject, fetchListProject
-    } = props;
-    const [dataUser, setDataUser] = useState([])
-    const [form] = Form.useForm()
+
+const CreateTask = (props) => {
     const [isSubmit, setIsSubmit] = useState(false);
+    const [form] = Form.useForm()
+    const [dataUser, setDataUser] = useState([])
+
+    const {
+        openCreateTask, setOpenCreateTask, fetchListTask
+    } = props;
     useEffect(() => {
         handleAllUser()
     }, []);
@@ -19,18 +21,18 @@ const CreateProject = (props) => {
             setDataUser(res.data)
         }
     };
-    const handleCreateProject = async (values) => {
+    const handleCreateTask = async (values) => {
         console.log('Success:', values);
-        const { nameproject, author_id, description } = values
+        const { nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status } = values
         
         setIsSubmit(true)
-        const res = await callCreateProject(nameproject, author_id, description)
+        const res = await callCreateTask(nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status)
         console.log("res create: ", res);
         if(res && res.data){
             message.success('Tạo mới thông tin bác sĩ thành công');
             form.resetFields();
-            setOpenCreateProject(false);
-            await fetchListProject()
+            setOpenCreateTask(false);
+            await fetchListTask()
         } else {
             notification.error({
                 message: 'Đã có lỗi xảy ra',
@@ -40,16 +42,17 @@ const CreateProject = (props) => {
         setIsSubmit(false)
     };
     const handleCancel = () => {
-        setOpenCreateProject(false);
+        setOpenCreateTask(false);
         form.resetFields()
     };
-    return(
+
+    return (
         <Modal
-            title="Tạo dự án mới"
+            title="Tạo nhiệm vụ mới"
             style={{
                 top: 20,
             }}
-            open={openCreateProject}
+            open={openCreateTask}
             onOk={() => form.submit()} 
             onCancel={() => handleCancel()}
             width={1100}
@@ -71,7 +74,7 @@ const CreateProject = (props) => {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={handleCreateProject}
+                        onFinish={handleCreateTask}
                         autoComplete="off"
                         loading={isSubmit}
                         >
@@ -79,8 +82,8 @@ const CreateProject = (props) => {
                                 <Col span={5} md={5} sm={5} xs={24}>
                                     <Form.Item
                                         layout="vertical"
-                                        label="Tên dự án"
-                                        name="nameproject"
+                                        label="Tên nhiệm vụ"
+                                        name="nametask"
                                         rules={[
                                             {
                                                 required: true,
@@ -94,8 +97,14 @@ const CreateProject = (props) => {
                                 <Col span={5} md={5} sm={5} xs={24}>
                                     <Form.Item
                                         layout="vertical"
-                                        label="Mô tả"
+                                        label="mô tả"
                                         name="description"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Vui lòng nhập tên dự án!',
+                                            },
+                                        ]}
                                     >
                                     <Input />
                                     </Form.Item>
@@ -103,12 +112,12 @@ const CreateProject = (props) => {
                                 <Col span={18} md={18} sm={18} xs={24} >
                                     <Form.Item
                                         layout="vertical"
-                                        label="Tác giả"
-                                        name="author_id"
+                                        label="Phân công"
+                                        name="user_id"
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Vui lòng chọn tác giả!',
+                                                message: 'Vui lòng chọn người đảm nhiệm!',
                                             },                                        
                                         ]}                                
                                     >
@@ -126,12 +135,12 @@ const CreateProject = (props) => {
                                             }))}
                                         />                               
                                     </Form.Item>
-                                </Col>  
+                                </Col> 
                             </Row>
                     </Form>
                 </Col>
             </Row>
         </Modal>
     )
-}
-export default CreateProject;
+};
+export default CreateTask;
