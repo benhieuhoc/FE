@@ -1,0 +1,52 @@
+.custom-add-project-modal .ant-modal-content {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 2px solid #6D8B74;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.custom-add-project-modal .ant-modal-header {
+    background-color: #80da95;
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    height: 60px;
+}
+
+.custom-add-project-modal .ant-modal-title {
+    color: #6D8B74;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.custom-add-project-modal .ant-modal-footer .ant-btn-primary {
+    background-color: #6D8B74;
+    border: none;
+    font-weight: 600;
+}
+
+.custom-add-project-modal .ant-modal-footer .ant-btn-default {
+    border-color: #6D8B74;
+    color: #6D8B74;
+}
+
+/* Input */
+.custom-add-project-modal .ant-input,
+.custom-add-project-modal .ant-input-textarea,
+.custom-add-project-modal .ant-picker {
+    border-radius: 8px;
+    border-color: #6D8B74;
+}
+
+/* DatePicker hover & selected */
+.custom-datepicker .ant-picker-cell-selected .ant-picker-cell-inner,
+.custom-datepicker .ant-picker-cell-inner:hover {
+    background-color: #80da95 !important;
+    border-radius: 50% !important;
+    color: white !important;
+}
+
+.custom-datepicker .ant-picker-cell-today .ant-picker-cell-inner::before {
+    border: 1px solid #6D8B74;
+}

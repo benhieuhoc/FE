@@ -28,12 +28,14 @@ const MenuLayout = () => {
         <Menu
         theme={theme}
         onClick={onClick}
-        style={{width: 250,
-            height: '100vh',
-            borderRadius: 0,
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            backdropFilter: "blur(10px)",
-            position: "fixed"
+        style={{width: 315,
+            height: 953, 
+            left: 10, 
+            top: 40, 
+            position: 'absolute', 
+            background: '#D9D9D9', 
+            boxShadow: '10px 0px 20.700000762939453px rgba(0; 0; 0; 0.57)', 
+            borderRadius: 59
         }}
         defaultOpenKeys={['sub1']}
         selectedKeys={[current]}

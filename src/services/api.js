@@ -1,9 +1,13 @@
 import axios from "../utils/axios-customize"
 
 // User
-export const fetchAllUser = () => {
-    const URL_BACKEND = `/user/get_all?`    
+export const fetchAllUser = (query) => {
+    const URL_BACKEND = `/user/get_all?${query}`    
     return axios.get(URL_BACKEND)
+}
+
+export const fetchUserbyId = (id) => {
+    return axios.get(`/user/get_by_id?id=${id}`)
 }
 
 export const callLogin = (email, password) => {
@@ -24,13 +28,25 @@ export const callRegister = (email, password, Name, phone) => {
 
 // Project
 export const fetchAllProject = () => {
-    const URL_BACKEND = `/project/get_all?`    
+    const URL_BACKEND = `/project/get_all`    
     return axios.get(URL_BACKEND)
 }
 
-export const callCreateProject = (nameproject, author_id, description ) => {
+export const fetchProjectbyId = (id) => {
+    return axios.get(`/project/get_by_id?id=${id}`)
+}
+
+export const fetchProjectbyauthor = (id, date) => {
+    return axios.get(`/project/get_by_author?id=${id}&date=${date}`)
+}
+
+export const fetchProjectbtCategory = (categoryId, userId) => {
+    return axios.get(`/project/get_by_category?categoryId=${categoryId}&userId=${userId}`)
+}
+
+export const callCreateProject = (author_id, nameproject, description, category_id, endDate ) => {
     return axios.post(`/project/create`, {
-        nameproject, author_id, description 
+        author_id, nameproject, description, category_id, endDate 
     })
 }
 
@@ -39,10 +55,27 @@ export const updateProject = ( _id, nameproject, author_id, description ) => {
         _id, nameproject, author_id, description 
     })
 }
+export const addMemberToProject = (Project_id, user_id) => {    
+        return axios.post(`/project/add_member`, {
+        Project_id, user_id 
+    })
+}
+
+export const addTaskToProject = (Project_id, task_id) => {
+    return axios.post(`/project/add_task`, {
+        Project_id, task_id 
+    })
+}
 
 export const deleteProject = (_id) => {
     console.log("id:", _id)
     return axios.delete(`/project/delete/${_id}`)
+}
+
+export const removeMemberFromProject = (Project_id, user_id) => {
+    return axios.delete(`/project/remove_member/${Project_id}/${user_id}`, {
+        Project_id, user_id 
+    })
 }
 
 // Task
@@ -51,9 +84,17 @@ export const fetchAllTask = () => {
     return axios.get(URL_BACKEND)
 }
 
-export const callCreateTask = (nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status) => {
+export const fetchTaskbyId = (id) => {
+    return axios.get(`/task/get_by_id?id=${id}`)
+}
+
+export const fetchTaskbyuser = (id, date) => {
+    return axios.get(`/task/show_task_by_user?id=${id}&date=${date}`)
+}
+
+export const callCreateTask = (nametask, user_id, description, day_start, day_end) => {
     return axios.post(`/task/create`, {
-        nametask, user_id, description, pre_task, next_task, day_start, time, day_end, status 
+        nametask, user_id, description, day_start, day_end 
     })
 }
 
@@ -66,4 +107,17 @@ export const updateTask = ( _id, nametask, user_id, description ) => {
     return axios.put('/task/update', {
         _id, nametask, user_id, description 
     })
+}
+
+export const updateStatus = ( _id, description, status ) => {
+    return axios.put('/task/update_status', {
+        _id, description, status 
+    })
+}
+
+
+// Category
+export const fetchAllCategory = () => {
+    const URL_BACKEND = `/category/get_all`    
+    return axios.get(URL_BACKEND)
 }

@@ -1,0 +1,41 @@
+.square-layout {
+    background: '#D9D9D9';
+    width: 358;
+    height: 346;
+    box-Shadow: -11px 11px 14.100000381469727px rgba(0, 0, 0, 0.54);
+    border-Radius: 54
+}
+
+.crossbar{
+    width: 356; 
+    height: 0; 
+    top: 75; 
+    position: 'absolute'; 
+    border: '1px #454545 solid'
+}
+
+.task-list-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border-bottom: 35px;
+}
+
+/* Ẩn thanh cuộn trên Webkit (Chrome, Safari) */
+.task-list-container::-webkit-scrollbar {
+    width: 6px; /* Độ rộng thanh cuộn */
+}
+
+.task-list-container::-webkit-scrollbar-thumb {
+    background-color: #6D8B74; /* Màu thanh cuộn */
+    border-radius: 10px;
+}
+
+.task-list-container::-webkit-scrollbar-track {
+    background: #D9D9D9; /* Màu nền */
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
