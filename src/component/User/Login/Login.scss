@@ -1,0 +1,49 @@
+// Login.scss
+.login-modal {
+  .ant-modal-content {
+    background-color: #6D8B74 !important;
+    color: white;
+  }
+
+  .ant-modal-header {
+    background-color: #6D8B74 !important;
+    border-bottom: 2px solid #80da95;
+  }
+
+  .ant-modal-title {
+    color: #fff !important;
+  }
+
+  .ant-btn-primary {
+    background-color: #80da95 !important;
+    border-color: #80da95 !important;
+  }
+
+  .login-input {
+    background-color: #D9D9D9 !important;
+    border: 1px solid #6D8B74;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .login-input:hover {
+    border-color: #80da95;
+  }
+
+  .ant-modal-footer {
+    display: none;
+  }
+
+  .login-title {
+    color: #80da95;
+  }
+
+  .title-register {
+    color: white;
+  }
+
+  .click_title {
+    color: #80da95;
+    margin-left: 5px;
+  }
+}

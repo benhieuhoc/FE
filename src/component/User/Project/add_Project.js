@@ -16,8 +16,9 @@ const AddProjectModal = (props) => {
     const handleCreateProject = async (values) => {
         // console.log('value', values);
         const { nameproject, description, category_id, endDate } = values
-        console.log('endDate: ', endDate)
-        const author_id = '67e3e5564129b9dcd9397317';
+        console.log('endDate: ', endDate);
+        const user = JSON.parse(localStorage.getItem('user'));
+        const author_id = user._id;
         // console.log("req_data: ", author_id, nameproject, description, category, formatDate);
         
         setIsSubmit(true)

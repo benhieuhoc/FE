@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "./ProjectListModal.scss";
 import {fetchProjectbtCategory} from "../../../../services/api"
 
-const ProjectListModal = ({ open, onCancel, categoryId, categoryName, userId }) => {
+const ProjectListModal = ({ open, onCancel, categoryId, categoryName, userId, setProjectId }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -22,11 +22,22 @@ const ProjectListModal = ({ open, onCancel, categoryId, categoryName, userId }) 
       }
   }
 
+  const onclickItem = (id) => {
+    setProjectId(id);
+    setData([]);
+    onCancel()
+  }
+
+  const handleCancel = () =>{
+    setData([]);
+    onCancel()
+  }
+
   return (
     <Modal
       title= {categoryName}
       open={open}
-      onCancel={onCancel}
+      onCancel={handleCancel}
       footer={null}
       width={1200}
       className="project-list-modal"
@@ -34,11 +45,11 @@ const ProjectListModal = ({ open, onCancel, categoryId, categoryName, userId }) 
       <div className="project-list-container">
         {data && data.length > 0 ? (
           data.map((project) => (
-            <Card key={project._id} className="project-card">
+            <Card key={project._id} className="project-card" onClick={() => onclickItem(project._id)}>
               <h3 className="project-title">{project.nameproject}</h3>
-              <p><strong>Mô tả:</strong> {project.description}</p>
+              <p><strong>Tác giả:</strong> {project.author_id.name}</p>
               <p><strong>Ngày kết thúc:</strong> {moment(project.dateEnd).format("DD/MM/YYYY")}</p>
-              <p><strong>Thành viên:</strong> {project.member_id?.length} người</p>
+              <p><strong>Thành viên:</strong> {project.member_id?.length + 1} người</p>
               <p><strong>Số nhiệm vụ:</strong> {project.task_id?.length} task</p>
             </Card>
           ))

@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
 import HomePage from "./page/Homepage";
 import Page404 from "./page/404page";
-import Login from "./page/Login/Login";
 import Home from "./page/Home";
+import Introduce from "./page/Introduce/Introduce";
 // test
 import Lo_gin from "./page/test/login";
 import Re_gister from "./page/test/register";
@@ -14,7 +14,7 @@ const App = () =>{
 
     const Routerconfig = [
         // dùng tạm
-        {path: "/", element: <Ho_me/>},
+        {path: "/", element: <Introduce/>},
         {path: "/register", element: <Re_gister/>},
         {path: "/all_project", element: <All_project/>},
         {path: "/all_task", element: <All_task/>},
@@ -24,7 +24,6 @@ const App = () =>{
 
         // giao diện chính
         {path: "/home", element: <Home/>},
-        {path: "/log-in", element: <Login/>},
         {path: "/ho-me", element: <HomePage/>},
         {path: "*", element: <Page404/>},
     ]

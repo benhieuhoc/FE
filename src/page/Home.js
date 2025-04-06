@@ -25,7 +25,8 @@ const Home = () => {
     const [taskId, setTaskId] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
     const [categoryName, setCategoryName] = useState(null);
-    const id = '67e3e5564129b9dcd9397317';
+    const user = JSON.parse(localStorage.getItem('user'));
+    const id = user._id;
     useEffect(() => {
         console.log("selectedDate",selectedDate)
         fetchListProject(id, selectedDate);
@@ -179,7 +180,8 @@ const Home = () => {
         }}
         categoryId={categoryId}
         categoryName={categoryName}
-        userId='67e3e5564129b9dcd9397317'
+        setProjectId = {setProjectId}
+        userId={id}
       />
     </>
     )

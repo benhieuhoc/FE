@@ -18,10 +18,10 @@ export const callLogin = (email, password) => {
     return axios.post(URL_BACKEND, data)
 }
 
-export const callRegister = (email, password, Name, phone) => {
+export const callRegister = (username, email, name, phone, password) => {
     const URL_BACKEND = 'user/singin'
     const data = {
-        email, password, Name, phone
+        username, email, name, phone, password
     }
     return axios.post(URL_BACKEND, data)
 }
