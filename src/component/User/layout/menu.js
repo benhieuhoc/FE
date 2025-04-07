@@ -3,78 +3,69 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/authSlice';
 import { useState } from 'react';
+import {LogoutOutlined, HomeOutlined} from '@ant-design/icons';
 import './css.scss';
 
 const MenuLayout = () => {
-    const [theme, setTheme] = useState('light');
-    const [current, setCurrent] = useState('/');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const [theme] = useState('light');
+  const [current, setCurrent] = useState('/');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const onClick = (e) => {
-        if (e.key === 'logout') {
-            dispatch(logout());
-            navigate('/');
-            return;
-        }
+  const onClick = (e) => {
+    if (e.key === 'logout') {
+      dispatch(logout());
+      navigate('/');
+      return;
+    }
+    setCurrent(e.key);
+  };
 
-        setCurrent(e.key);
-    };
+  const items = [
+    {
+      key: '/home',
+      label: <Link className="menu-item" to="/home">Quản lý</Link>,
+    },
+    {
+      key: '/notifica',
+      label: <Link className="menu-item" to="/notifica">Thông báo</Link>,
+    },
+  ];
 
-    const items = [
-        {
-            key: 'Logo',
-            label: <p className='menu-item'>Task Manager</p>,
-            style: { pointerEvents: "none", userSelect: "none" }
-        },
-        {
-            key: '/',
-            label: <Link className='menu-item' to="/">Trang chủ</Link>,
-        },
-    ];
+  return (
+    <>
+      <div className="custom-menu-wrapper">
+        {/* Logo */}
+        <div className="logo-section">
+          <p className="menu-logo">Task Manager</p>
+        </div>
 
-    return (
-        <>
-            <Menu
-                theme={theme}
-                onClick={onClick}
-                style={{
-                    width: 315,
-                    height: '100vh',
-                    position: 'absolute',
-                    left: 10,
-                    top: 40,
-                    background: '#D9D9D9',
-                    boxShadow: '10px 0px 20.7px rgba(0, 0, 0, 0.57)',
-                    borderRadius: 59,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: 24
-                }}
-                selectedKeys={[current]}
-                mode='inline'
-                items={items}
-            />
-
-            {/* Đăng xuất nằm riêng dưới cùng */}
-            <div
-                style={{
-                    position: 'absolute',
-                    bottom: 30,
-                    left: 30,
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    color: '#ff4d4f'
-                }}
-                onClick={() => {
-                    dispatch(logout());
-                    navigate('/');
-                }}
-            >
-                Đăng xuất
-            </div>
-        </>
-    );
+        {/* Menu items */}
+        <Menu
+          theme={theme}
+          onClick={onClick}
+          selectedKeys={[current]}
+          mode="inline"
+          items={items}
+          className="custom-menu"
+        />
+        <div className="logout-section" onClick={() => {
+          navigate('/');
+        }}>
+          <HomeOutlined style={{ marginRight: 8 }} />
+          <span>Trang chủ</span>
+        </div>
+        {/* Logout */}
+        <div className="logout-section" onClick={() => {
+          dispatch(logout());
+          navigate('/');
+        }}>
+          <LogoutOutlined style={{ marginRight: 8 }} />
+          <span>Đăng xuất</span>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default MenuLayout;

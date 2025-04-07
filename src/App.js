@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router";
 // User
 import HomePage from "./page/Homepage";
 import Page404 from "./page/404page";
-import Home from "./page/Home";
+import Home from "./page/User/Home/Home";
 import Introduce from "./page/Introduce/Introduce";
+import Notifica from "./page/User/Notification/Notification";
 // Admin
 import UserManager from "./page/Admin/Usermanager";
 import ProjectManager from "./page/Admin/ProjectManager";
@@ -30,6 +31,7 @@ const App = () =>{
         // User
         {path: "/home", element: <Home/>},
         {path: "/ho-me", element: <HomePage/>},
+        {path: "/notifica", element: <Notifica/>},
         {path: "*", element: <Page404/>},
         // Admin
         {path: "/admin/user", element: <UserManager/>},

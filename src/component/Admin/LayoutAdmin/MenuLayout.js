@@ -73,7 +73,7 @@ const MenuLayoutadmin = () => {
                     color: '#ff4d4f'
                 }}
                 onClick={() => {
-                    dispatch(logout());
+                    // dispatch(logout());
                     navigate('/');
                 }}
             >

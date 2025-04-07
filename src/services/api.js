@@ -121,3 +121,29 @@ export const fetchAllCategory = () => {
     const URL_BACKEND = `/category/get_all`    
     return axios.get(URL_BACKEND)
 }
+
+// Notification
+export const fetchAllNotification = (id) => {
+    const URL_BACKEND = `/notification/get_all?_id=${id}`    
+    return axios.get(URL_BACKEND)
+}
+
+export const sendInviteToUser = (user_id, sender_id, project_id, content) => {
+    const URL_BACKEND = '/notification/send_invite';
+    return axios.post(URL_BACKEND, {user_id, sender_id, project_id, content})
+}
+
+export const responseNotication = (user_id, sender_id, project_id, content) => {
+    const URL_BACKEND = '/notification/respond_invite';
+    return axios.post(URL_BACKEND, {user_id, sender_id, project_id, content})
+}
+
+export const chanceStatus = (notification_id, response) => {
+    const URL_BACKEND = '/notification/chance_status';
+    return axios.put(URL_BACKEND, {notification_id, response})
+}
+
+export const chanceRead = (notification_id) => {
+    const URL_BACKEND = '/notification/chance_read';
+    return axios.put(URL_BACKEND, {notification_id})
+}

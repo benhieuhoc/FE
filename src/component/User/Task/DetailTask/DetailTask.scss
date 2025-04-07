@@ -1,42 +1,41 @@
 .task-detail-modal {
-    .ant-modal-body {
+  .ant-modal-body {
       background-color: white;
       padding: 20px;
       font-family: Arial, sans-serif;
-    }
-  
-    .task-detail {
-      .task-info {
-        p {
-          font-size: 16px;
-          margin-bottom: 10px;
-        }
-      }
-  
-      .task-description {
-        margin-top: 20px;
-        .ant-input-textarea {
-          font-size: 14px;
-        }
-      }
-  
-      .task-status {
-        margin-top: 20px;
-        font-size: 16px;
-        .ant-switch {
-          background-color: #6d8b74;
-        }
-      }
-  
-      button {
-        background-color: #80da95;
-        border-color: #80da95;
-        color: white;
-        &:hover {
-          background-color: #6d8b74;
-          border-color: #6d8b74;
-        }
-      }
-    }
   }
-  
+
+  .task-detail {
+      .task-info {
+          p {
+              font-size: 16px;
+              margin-bottom: 10px;
+          }
+      }
+
+      .task-description {
+          margin-top: 20px;
+          .ant-input-textarea {
+              font-size: 14px;
+          }
+      }
+
+      .task-status {
+          margin-top: 20px;
+          font-size: 16px;
+          .ant-switch {
+              background-color: #6d8b74;
+          }
+      }
+
+      button {
+          background-color: #80da95;
+          border-color: #80da95;
+          color: white;
+          &:hover {
+              background-color: #6d8b74;
+              border-color: #6d8b74;
+          }
+      }
+  }
+}

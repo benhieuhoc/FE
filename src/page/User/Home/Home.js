@@ -1,16 +1,17 @@
-import Layoutmain from "../component/User/layout/Layoutmain";
-import LayoutProject from "../component/User/Project/SquareProject/LayoutProject";
-import LayoutTask from "../component/User/Task/SquareTask/LayoutTask";
-import CalendarLayout from "../component/User/Calender/CalendarLayout";
-import AddProjectModal from "../component/User/Project/add_Project";
-import AddTaskModal from "../component/User/Task/AddTask/add_Task";
-import TaskDetail from "../component/User/Task/DetailTask/DetailTask";
-import CategotyLayout from "../component/User/Category/Category";
-import ProjectListModal from "../component/User/Category/ProjectbtCategory/ListProjectModal";
+import Layoutmain from "../../../component/User/layout/Layoutmain";
+import LayoutProject from "../../../component/User/Project/SquareProject/LayoutProject";
+import LayoutTask from "../../../component/User/Task/SquareTask/LayoutTask";
+import CalendarLayout from "../../../component/User/Calender/CalendarLayout";
+import AddProjectModal from "../../../component/User/Project/add_Project";
+import AddTaskModal from "../../../component/User/Task/AddTask/add_Task";
+import TaskDetail from "../../../component/User/Task/DetailTask/DetailTask";
+import CategotyLayout from "../../../component/User/Category/Category";
+import ProjectListModal from "../../../component/User/Category/ProjectbtCategory/ListProjectModal";
 import { useEffect, useState } from "react";
-import { fetchProjectbyauthor, fetchTaskbyuser, fetchAllCategory } from "../services/api";
+import { fetchProjectbyauthor, fetchTaskbyuser, fetchAllCategory } from "../../../services/api";
 import { Button, Row, Col, Space } from "antd";
 import { IoAddCircle } from "react-icons/io5";
+import './Home.scss'
 
 const Home = () => {
     const [dataProject, setDataProject] = useState([]);
@@ -104,45 +105,47 @@ const Home = () => {
     return(
     <>
         <Layoutmain>
-            <Col>
-            <Row style={{ height: 60, borderRadius: 15, marginBottom: '30px', justifyContent: 'space-between', alignItems: 'center', background: '#D9D9D9' }}>
-                <Space size="middle">
-                    <Button 
-                        style={{ left: 1100, height: 40, fontSize: 20, fontWeight: 600 , borderRadius: 15, color: '#000000', background: '#80da95' }}
-                        type="primary" 
-                        icon={<IoAddCircle />} 
-                        onClick={() => { setOpenCreateProject(true) }}
-                        >
-                        Thêm dự án
-                    </Button>
-                    {/* <Button 
-                        icon={<UserOutlined />} 
-                        onClick={() => console.log("Trang cá nhân")}
-                        >
-                        Trang cá nhân
-                        </Button> */}
-                </Space>
+            <Col className="page-container">
+            <Row className="top-bar">
+                <Button 
+                className="add-button"
+                type="primary"
+                icon={<IoAddCircle />} 
+                onClick={() => setOpenCreateProject(true)}
+                >
+                Thêm dự án
+                </Button>
             </Row>
-                <Row style={{ display: "flex", gap: "100px" }}>
-                    <CalendarLayout 
-                        title='Lịch công việc' 
-                        onDateChange={handleDateChange} 
-                        />
-                    <LayoutProject
-                        Datas = {dataProject}
-                        onItemClick={handleProjectClick}
-                        />
-                </Row>
-                <Row style={{ display: "flex", gap: "100px", marginTop: "40px" }}>
-                    <CategotyLayout 
-                        Datas = {dataCategory}
-                        onItemClick={handleCategoryClick}
-                        />
-                    <LayoutTask
-                        Datas = {dataTask}
-                        onItemClick={handleTaskClick}
-                        />
-                </Row>
+
+            <Row className="layout-row">
+                <div className="card-wrapper">
+                <CalendarLayout 
+                    title='Lịch công việc' 
+                    onDateChange={handleDateChange} 
+                />
+                </div>
+                <div className="card-wrapper">
+                <LayoutProject 
+                    Datas={dataProject} 
+                    onItemClick={handleProjectClick} 
+                />
+                </div>
+            </Row>
+
+            <Row className="layout-row">
+                <div className="card-wrapper">
+                <CategotyLayout 
+                    Datas={dataCategory} 
+                    onItemClick={handleCategoryClick} 
+                />
+                </div>
+                <div className="card-wrapper">
+                <LayoutTask 
+                    Datas={dataTask} 
+                    onItemClick={handleTaskClick} 
+                />
+                </div>
+            </Row>
             </Col>
         </Layoutmain>
          <AddProjectModal

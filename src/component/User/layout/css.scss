@@ -1,9 +1,89 @@
-.menu-item:not(:last-child) {
-    border-bottom: 1px solid black;
-    font-size: 17px;
-}
-.ant-menu-item-selected {
-    background-color: #6D8B74 !important;
-    color: black !important;
+.custom-menu-wrapper {
+    width: 315px;
+    height: 90vh;
+    background: #D9D9D9;
+    position: absolute;
+    left: 10px;
+    top: 40px;
+    box-shadow: 10px 0px 20.7px rgba(0, 0, 0, 0.57);
+    border-radius: 59px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 24px;
   }
+  
+  .logo-section {
+    padding: 24px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    background-color: #80da95;
+    border-top-left-radius: 59px;
+    border-top-right-radius: 59px;
+  }
+  
+  .menu-logo {
+    margin: 0;
+  }
+  
+.custom-menu {
+background: transparent !important;
+flex: 1;
+padding-top: 20px;
 
+    .ant-menu-item {
+        margin: 12px 16px !important; // khoảng cách giữa các item
+        padding: 14px 20px !important;
+        border-bottom: 1px solid #c2c2c2; // phân cách giữa các item
+        border-radius: 10px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: #80da95 !important;
+        }
+    }
+    .ant-menu-item-selected {
+        background-color: #6D8B74 !important;
+        color: white !important;
+        font-weight: bold;
+    }
+}
+  
+  .menu-item {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000 !important;
+    padding: 12px 16px;
+    transition: all 0.3s;
+  }
+  
+  .menu-item:hover {
+    background-color: #80da95 !important;
+    border-radius: 12px;
+  }
+  
+  .ant-menu-item-selected {
+    background-color: #6D8B74 !important;
+    color: #fff !important;
+    border-radius: 12px;
+  }
+  
+  .logout-section {
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #6D8B74;
+      color: white;
+      border-radius: 12px;
+    }
+  }
+  

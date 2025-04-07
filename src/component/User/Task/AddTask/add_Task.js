@@ -1,8 +1,8 @@
 import { Modal, Form, Input, Button, List, Row, Col, Typography, Divider, Avatar, notification, Select, DatePicker, message } from 'antd';
-import { PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, CheckCircleOutlined, ClockCircleOutlined, MailOutlined } from '@ant-design/icons';
 import { IoAddCircle } from "react-icons/io5";
 import { useState, useEffect, useRef } from 'react';
-import { fetchProjectbyId, fetchAllUser, addMemberToProject, removeMemberFromProject, callCreateTask, addTaskToProject, deleteTask } from '../../../../services/api';
+import { fetchProjectbyId, fetchAllUser, sendInviteToUser, removeMemberFromProject, callCreateTask, addTaskToProject, deleteTask } from '../../../../services/api';
 import './AddTaskModal.scss';
 
 const AddTaskModal = ({ open, onCancel, projectId, onSaveTasks }) => {
@@ -48,14 +48,17 @@ const AddTaskModal = ({ open, onCancel, projectId, onSaveTasks }) => {
         
         setDataUserinProject(combined);
     }, [dataUser]);
-    const onAddMember = async (user) => {
+    const onRequestMember = async (user) => {
         try {
-            const Project_id = dataProject._id;
+            const project_id = dataProject._id;
             const user_id = user._id;
-            const res = await addMemberToProject(Project_id, user_id);
+            const sender_id = dataAuthor._id;
+            const content = `${dataAuthor.name} mời bạn tham gia một dự án của họ - ${dataProject.nameproject}`
+            const res = await sendInviteToUser(user_id, sender_id, project_id, content);
+            console.log("res request", res);
             if (res && res.data) {
                 notification.success({
-                    message: "Thêm thành viên thành công",
+                    message: "Đã gửi lời mời",
                 })
             }
             fetchProjectbyid(Project_id); 
@@ -289,10 +292,10 @@ const AddTaskModal = ({ open, onCancel, projectId, onSaveTasks }) => {
                                         actions={[
                                             <Button
                                                 type="link"
-                                                icon={<PlusOutlined />}
-                                                onClick={() => onAddMember(user)}
+                                                icon={<MailOutlined />}
+                                                onClick={() => onRequestMember(user)}
                                             >
-                                                Thêm
+                                                Mời
                                             </Button>
                                         ]}
                                     >
