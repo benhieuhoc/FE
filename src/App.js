@@ -1,8 +1,13 @@
 import { Route, Routes } from "react-router";
+// User
 import HomePage from "./page/Homepage";
 import Page404 from "./page/404page";
 import Home from "./page/Home";
 import Introduce from "./page/Introduce/Introduce";
+// Admin
+import UserManager from "./page/Admin/Usermanager";
+import ProjectManager from "./page/Admin/ProjectManager";
+import TaskManager from "./page/Admin/TaskManager";
 // test
 import Lo_gin from "./page/test/login";
 import Re_gister from "./page/test/register";
@@ -22,12 +27,15 @@ const App = () =>{
         {path: "/register", element: <Re_gister/>},
 
 
-        // giao diện chính
+        // User
         {path: "/home", element: <Home/>},
         {path: "/ho-me", element: <HomePage/>},
         {path: "*", element: <Page404/>},
+        // Admin
+        {path: "/admin/user", element: <UserManager/>},
+        {path: "/admin/project", element: <ProjectManager/>},
+        {path: "/admin/task", element: <TaskManager/>},
     ]
-
     return (
         <>
             <Routes>

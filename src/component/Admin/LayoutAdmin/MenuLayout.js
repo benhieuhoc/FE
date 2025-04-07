@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/authSlice';
 import { useState } from 'react';
-import './css.scss';
+import './LayoutAdmin.scss';
 
-const MenuLayout = () => {
+const MenuLayoutadmin = () => {
     const [theme, setTheme] = useState('light');
     const [current, setCurrent] = useState('/');
     const dispatch = useDispatch();
@@ -24,12 +24,20 @@ const MenuLayout = () => {
     const items = [
         {
             key: 'Logo',
-            label: <p className='menu-item'>Task Manager</p>,
+            label: <p className='menu-item'>Admin Panel</p>,
             style: { pointerEvents: "none", userSelect: "none" }
         },
         {
-            key: '/',
-            label: <Link className='menu-item' to="/">Trang chủ</Link>,
+            key: '/admin/user',
+            label: <Link className='menu-item' to="/admin/user">Quản lý người dùng</Link>,
+        },
+        {
+            key: '/admin/project',
+            label: <Link className='menu-item' to="/admin/project">Quản lý dự án</Link>,
+        },
+        {
+            key: '/admin/task',
+            label: <Link className='menu-item' to="/admin/task">Quản lý công việc</Link>,
         },
     ];
 
@@ -55,8 +63,6 @@ const MenuLayout = () => {
                 mode='inline'
                 items={items}
             />
-
-            {/* Đăng xuất nằm riêng dưới cùng */}
             <div
                 style={{
                     position: 'absolute',
@@ -77,4 +83,4 @@ const MenuLayout = () => {
     );
 };
 
-export default MenuLayout;
+export default MenuLayoutadmin;
